@@ -1,0 +1,2 @@
+mkdir vmware_remote_access
+cd vmware_remote_access
