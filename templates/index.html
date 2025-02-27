@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMware Remote Access</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-server"></i> VMware Remote Access</h1>
+            <div class="system-info">
+                <span>Platform: {{ system_info.os }}</span>
+                <span>Architecture: {{ system_info.architecture }}</span>
+            </div>
+        </header>
+        
+        <div class="login-section" id="loginSection">
+            <h2>Connect to VMware vSphere</h2>
+            <div class="form-group">
+                <label for="vcenterUrl">vCenter URL</label>
+                <input type="text" id="vcenterUrl" placeholder="https://your-vcenter-server">
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="administrator@vsphere.local">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password">
+            </div>
+            <button id="loginButton" class="btn-primary">Connect</button>
+            <div id="loginMessage" class="message"></div>
+        </div>
+        
+        <div class="dashboard" id="dashboard" style="display: none;">
+            <div class="sidebar">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userDisplay">Not Connected</span>
+                </div>
+                <button id="refreshButton" class="btn-secondary"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button id="logoutButton" class="btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+            
+            <div class="main-content">
+                <div class="vm-list-header">
+                    <h2>Virtual Machines</h2>
+                    <div class="search-box">
+                        <input type="text" id="searchVm" placeholder="Search VMs...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <div class="vm-list" id="vmList">
+                    <div class="loading" id="loadingIndicator">
+                        <i class="fas fa-spinner fa-spin"></i> Loading virtual machines...
+                    </div>
+                    <div id="noVmsMessage" style="display: none;">
+                        No virtual machines found.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- VM Details Modal -->
+        <div id="vmModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modalVmName">VM Name</h2>
+                <div class="vm-details">
+                    <div class="detail-item">
+                        <strong>VM ID:</strong> <span id="modalVmId"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Power State:</strong> <span id="modalVmPowerState"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>CPU Count:</strong> <span id="modalVmCpu"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Memory Size:</strong> <span id="modalVmMemory"></span>
+                    </div>
+                </div>
+                <div class="vm-actions">
+                    <button id="powerOnBtn" class="btn-success"><i class="fas fa-play"></i> Power On</button>
+                    <button id="powerOffBtn" class="btn-warning"><i class="fas fa-stop"></i> Power Off</button>
+                    <button id="resetBtn" class="btn-primary"><i class="fas fa-redo"></i> Reset</button>
+                    <button id="suspendBtn" class="btn-info"><i class="fas fa-pause"></i> Suspend</button>
+                </div>
+                <div id="actionStatus" class="message"></div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>VMware Remote Access Tool | Cross-Platform Compatible</p>
+    </footer>
+    
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
